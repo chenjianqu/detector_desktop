@@ -1,6 +1,12 @@
-//
-// Created by chen on 2021/8/10.
-//
+/*******************************************************
+ *
+ * Copyright (C) 2022, Chen Jianqu, Shanghai University
+ *
+ * This file is part of detector_desktop.
+ *
+ * Licensed under the MIT License;
+ * you may not use this file except in compliance with the License.
+ *******************************************************/
 
 #ifndef DETECTOR_ARM_H
 #define DETECTOR_ARM_H
@@ -8,12 +14,10 @@
 #include <future>
 
 #include <Eigen/Geometry>
-
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
 #include <tf/transform_listener.h>
 #include <tf/transform_broadcaster.h>
-
 
 #include <kinova_msgs/ArmPoseGoal.h>
 #include <kinova_msgs/ArmPoseAction.h>

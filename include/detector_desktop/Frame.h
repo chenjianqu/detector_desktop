@@ -1,12 +1,17 @@
-//
-// Created by chen on 2021/8/24.
-//
+/*******************************************************
+ *
+ * Copyright (C) 2022, Chen Jianqu, Shanghai University
+ *
+ * This file is part of detector_desktop.
+ *
+ * Licensed under the MIT License;
+ * you may not use this file except in compliance with the License.
+ *******************************************************/
 
 #ifndef DETECTOR_FRAME_H
 #define DETECTOR_FRAME_H
 
 #include <opencv2/opencv.hpp>
-
 #include <condition_variable>
 #include <chrono>
 

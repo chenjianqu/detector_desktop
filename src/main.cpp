@@ -1,3 +1,12 @@
+/*******************************************************
+ *
+ * Copyright (C) 2022, Chen Jianqu, Shanghai University
+ *
+ * This file is part of detector_desktop.
+ *
+ * Licensed under the MIT License;
+ * you may not use this file except in compliance with the License.
+ *******************************************************/
 #include<string>
 #include <thread>
 
@@ -37,15 +46,17 @@ void MouseCallback(int event,int x,int y,int flags,void *p)
 
 int main(int argc, char** argv)
 {
+    if(argc!=2){
+        std::cerr<<"please set config.yaml";
+        return -1;
+    }
+
     setlocale(LC_ALL, "");//防止中文乱码
     ros::init(argc, argv, "detect_node");
     ros::start();
     ros::NodeHandle nh;
 
-    std::string config_file;
-    if(!nh.getParam("config_file",config_file)){
-        config_file="/home/chen/ws/detector_ws/src/detector_desktop/config/config.yaml";
-    }
+    std::string config_file(argv[1]);
     Config cfg(config_file);
 
     ros::Publisher pcl_pub=nh.advertise<sensor_msgs::PointCloud2>(Config::kPointCloudOutputTopic, 1);

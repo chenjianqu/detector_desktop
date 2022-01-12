@@ -1,11 +1,15 @@
-//
-// Created by chen on 2021/8/10.
-//
+/*******************************************************
+ *
+ * Copyright (C) 2022, Chen Jianqu, Shanghai University
+ *
+ * This file is part of detector_desktop.
+ *
+ * Licensed under the MIT License;
+ * you may not use this file except in compliance with the License.
+ *******************************************************/
 #include "detector_desktop/Arm.h"
-
 #include <iostream>
 #include <thread>
-
 #include <Eigen/Core>
 #include <opencv2/core/eigen.hpp>
 #include <pcl/point_cloud.h>

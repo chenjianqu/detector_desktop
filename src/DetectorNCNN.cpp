@@ -1,9 +1,14 @@
-//
-// Created by chen on 2021/8/22.
-//
+/*******************************************************
+ *
+ * Copyright (C) 2022, Chen Jianqu, Shanghai University
+ *
+ * This file is part of detector_desktop.
+ *
+ * Licensed under the MIT License;
+ * you may not use this file except in compliance with the License.
+ *******************************************************/
 #include "detector_desktop/DetectorNCNN.h"
 #include "detector_desktop/Config.h"
-
 
 class YoloV5Focus : public ncnn::Layer{
 public:
@@ -49,10 +54,6 @@ public:
 };
 
 DEFINE_LAYER_CREATOR(YoloV5Focus)
-
-
-
-
 
 
 static inline float intersection_area(const Object& a, const Object& b)
