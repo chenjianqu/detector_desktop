@@ -1,0 +1,122 @@
+%YAML:1.0
+
+realsense2_rgb_topic: "/camera/color/image_raw"
+realsense2_camera_info_topic: "/camera/color/camera_info"
+realsense2_depth_topic: "/camera/aligned_depth_to_color/image_raw"
+
+point_cloud_output_topic: "/pcl_out"
+point_cloud_msg_frame: "/j2n6s300_link_base"
+
+#相机坐标系head_camera_color_optical_frame 到 底座base_link 的变换矩阵
+optical2base: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: d
+  data: [ -3.6732051031940216e-06, -9.9999999998650746e-01,
+            -3.6732051033605551e-06, 4.6800000000000001e-03, 0.,
+            -3.6732051031940216e-06, 9.9999999999325362e-01,
+            7.0750000000000007e-02, -9.9999999999325362e-01,
+            3.6732051033605551e-06, 1.3492540418269527e-11,
+            7.5304489999999991e-01, 0., 0., 0., 1. ]
+
+#相机坐标系head_camera_color_optical_frame 到 head_camera_link 的变换矩阵
+#采集方法：
+# roslaunch realsense2_description view_d435_model.launch
+#rosrun tf_teswrite_tf camera_link camera_color_optical_frame camera.yaml
+optical2cam: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: d
+  data: [ 4.8965276278067904e-12, 4.8965276278067904e-12, 1., 0., -1.,
+          0., 4.8965276278067904e-12, 1.4999999999999999e-02, 0., -1.,
+          4.8965276278067904e-12, 0., 0., 0., 0., 1. ]
+
+#相机坐标系head_camera_link 到 j2n6s300_link_base 的变换矩阵
+#采集方法：rosrun tf_test write_tf j2n6s300_link_base head_camera_color_optical_frame arm2camera.yaml
+cam2arm: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: d
+  data: [ -3.6732051031940216e-06, 0., -9.9999999999325362e-01,                   -2.6900008686948618e-01,
+          -9.9999999998650746e-01,-3.6732051031940216e-06, 3.6732051033605551e-06,-2.3648767639368740e-02,
+          -3.6732051033605551e-06,9.9999999999325362e-01, 1.3492540418269527e-11, -6.6500086867222669e-02,
+          0., 0., 0., 1. ]
+
+#相机标定得到的光心坐标系到机械臂基坐标系的变换矩阵，即optical坐标系在arm_base坐标系下的坐标
+optical2arm: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: d
+  data: [ -9.9779816092543538e-01, -1.4669917344004912e-02, 6.4680936750630247e-02, -5.6161640850358108e-01,
+        -4.6742596013748861e-02, 8.4741057496988748e-01,-5.2887658971361173e-01, 3.5407556687950748e-01,
+        -4.7052733945164599e-02, -5.3073544346908341e-01,-8.4623042327368525e-01, 6.8370947805349247e-01,
+          0., 0., 0., 1. ]
+
+
+#欧拉角，以ZYX的顺序，即yaw pitch roll
+grasp_pose_euler: !!opencv-matrix
+  rows: 3
+  cols: 1
+  dt: d
+#  data: [1.36760631677,0.504417236952,3.05446528289 ]
+#竖直往下，用于机械臂的抓取
+  data: [  1.28532627748,-3.13859847975 ,0.0451745052848]
+
+
+
+object_topic: "/object_output"
+detect_result_topic: "/detect_result"
+
+#1表示使用libtorch,0表示使用ncnn
+use_libtorch: 1
+use_gpu: 0
+ncnn_num_threads: 0
+
+names_path: "/home/chen/ws/detector_ws/src/detector_desktop/config/coco.names"
+model_path: "/home/chen/ws/detector_ws/src/detector_desktop/config/yolov5s.torchscript.pt"
+#model_path: "/home/chen/ws/detector_ws/src/detector_desktop/config/ncnn"
+
+object_threshold: 0.5
+
+kinova_robotType: "j2n6s300"
+kinova_pose_action_address: "/j2n6s300_driver/pose_action/tool_pose"
+kinova_finger_action_address: "/j2n6s300_driver/fingers_action/finger_positions"
+arm_msg_frame: "j2n6s300_link_base"
+
+#抓取时，手指的闭合数值，6120是%90的闭合，0是张到最大的状态
+arm_finger_value: 3500.0
+
+Camera.type: "PinHole"
+Camera.fps: 30
+
+Camera.width: 640
+Camera.height: 480
+
+#这个相机内参不一定对，在main_ros中，订阅image_info来获取内参
+Camera.fx: 912.917
+Camera.fy: 910.443
+Camera.cx: 640.754
+Camera.cy: 355.185
+
+
+
+Camera.depthFactor: 1000.0
+
+Camera.k1: 0.0
+Camera.k2: 0.0
+Camera.p1: 0.0
+Camera.p2: 0.0
+
+depth_filter_threshold_min: 0.200
+depth_filter_threshold_max: 2.000
+
+point_cloud_resolution: 0.005
+
+use_rs_pointcloud: 0
+
+#各线程的队列大小
+dataloader_queue_size: 3
+detector_queue_size: 3
+segmentor_queue_size: 3
+
+

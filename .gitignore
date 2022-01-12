@@ -1,0 +1,4 @@
+/.idea/
+/cmake-build-debug/
+*/yolov5s.torchscript.pt
+*/yolov5x.torchscript.pt
