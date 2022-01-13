@@ -13,7 +13,7 @@
 * realsense2
 * Eigen3
 * Libtorch
-* NCNN (Optimal)
+* NCNN (Optional)
 * ROS
 * Kinova Driver
 
